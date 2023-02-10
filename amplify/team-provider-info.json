@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-easyfoodsexpress-staging-153946-authRole",
+      "UnauthRoleArn": "arn:aws:iam::368620665640:role/amplify-easyfoodsexpress-staging-153946-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::368620665640:role/amplify-easyfoodsexpress-staging-153946-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-easyfoodsexpress-staging-153946-deployment",
+      "UnauthRoleName": "amplify-easyfoodsexpress-staging-153946-unauthRole",
+      "StackName": "amplify-easyfoodsexpress-staging-153946",
+      "StackId": "arn:aws:cloudformation:us-east-1:368620665640:stack/amplify-easyfoodsexpress-staging-153946/fb846160-a88f-11ed-b278-0a9c666f2c27",
+      "AmplifyAppId": "d3d8llh757tqyt"
+    },
+    "categories": {
+      "auth": {
+        "EasyFoodsExpress": {}
+      }
+    }
+  }
+}
