@@ -1,0 +1,72 @@
+type OrderDish @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  quantity: Int
+  Dish: Dish @hasOne
+  orderID: ID! @index(name: "byOrder")
+}
+
+type Order @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  status: OrderStatus!
+  Restaurant: Restaurant @hasOne
+  OrderDishes: [OrderDish] @hasMany(indexName: "byOrder", fields: ["id"])
+  userID: ID! @index(name: "byUser")
+}
+
+enum OrderStatus {
+  NEW
+  COOKING
+  READY_FOR_PICKUP
+  PICKED_UP
+  COMPLETED
+}
+
+type Basket @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  BasketDishes: [BasketDish] @hasMany(indexName: "byBasket", fields: ["id"])
+  userID: ID! @index(name: "byUser")
+  restaurantID: ID! @index(name: "byRestaurant")
+}
+
+type Dish @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  name: String!
+  image: String
+  shortDescription: String
+  description: String
+  price: Float
+  restaurantID: ID! @index(name: "byRestaurant")
+}
+
+type BasketDish @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  quantity: Int!
+  basketID: ID! @index(name: "byBasket")
+  Dish: Dish @hasOne
+}
+
+type Restaurant @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  name: String!
+  image: String!
+  deliveryFee: Float!
+  minDeliveryTime: Int!
+  maxDeliveryTime: Int
+  rating: Float
+  address: String!
+  lat: Float!
+  lng: Float!
+  Dishes: [Basket] @hasMany(indexName: "byRestaurant", fields: ["id"])
+  Baskets: [Basket] @hasMany(indexName: "byRestaurant", fields: ["id"])
+}
+
+type User @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  sub: String!
+  name: String!
+  address: String!
+  lat: String!
+  lng: String!
+  Baskets: [Basket] @hasMany(indexName: "byUser", fields: ["id"])
+  Orders: [Basket] @hasMany(indexName: "byUser", fields: ["id"])
+}
